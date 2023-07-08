@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Video afspelen</title>
+</head>
+<body>
+    <h1>Video afspelen</h1>
+    <div id="video-player"></div>
+
+    <script>
+        const videoUrl = 'doen.mp4'; // Vervang 'bestandsnaam' door de werkelijke bestandsnaam
+
+        const videoPlayer = document.createElement('video');
+        videoPlayer.setAttribute('controls', true);
+
+        const source = document.createElement('source');
+        source.setAttribute('src', videoUrl);
+        source.setAttribute('type', 'video/mp4');
+
+        videoPlayer.appendChild(source);
+
+        const videoContainer = document.getElementById('video-player');
+        videoContainer.appendChild(videoPlayer);
+    </script>
+</body>
+</html>

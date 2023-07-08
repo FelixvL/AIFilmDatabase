@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Voeg een nieuwe acteur toe</title>
+</head>
+<body>
+    <h1>Voeg een nieuwe acteur toe</h1>
+    <form id="acteur-form">
+        <label for="voornaam">Voornaam:</label><br>
+        <input type="text" id="voornaam" name="voornaam"><br>
+        <label for="achternaam">Achternaam:</label><br>
+        <input type="text" id="achternaam" name="achternaam"><br>
+        <button type="submit">Voeg Acteur Toe</button>
+    </form>
+
+    <script>
+        document.getElementById('acteur-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // voorkom de standaard form inzending
+            
+            var voornaam = document.getElementById('voornaam').value;
+            var achternaam = document.getElementById('achternaam').value;
+            
+            fetch('http://127.0.0.1:5000/acteurs', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    voornaam: voornaam,
+                    achternaam: achternaam
+                    // andere velden hier
+                })
+            })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+        <form id="film-form">
+            <label for="naam">Naam:</label><br>
+            <input type="text" id="naam" name="naam"><br>
+            <label for="bestandsnaam">Bestandsnaam:</label><br>
+            <input type="text" id="bestandsnaam" name="bestandsnaam"><br>
+            <button type="submit">Voeg Film Toe</button>
+        </form>
+    
+        <script>
+            document.getElementById('film-form').addEventListener('submit', function(e) {
+                e.preventDefault(); // voorkom de standaard form inzending
+                
+                var naam = document.getElementById('naam').value;
+                var bestandsnaam = document.getElementById('bestandsnaam').value;
+                
+                fetch('http://127.0.0.1:5000/films', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        naam: naam,
+                        bestandsnaam: bestandsnaam
+                    })
+                })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+            });
+        </script>
+            <ul id="films-list"></ul>
+
+            <script>
+                fetch('http://127.0.0.1:5000/films')
+                    .then(response => response.json())
+                    .then(data => {
+                        const filmsList = document.getElementById('films-list');
+                        data.forEach(film => {
+                            const listItem = document.createElement('li');
+                            listItem.textContent = `Naam: ${film.naam}, Bestandsnaam: ${film.bestandsnaam}`;
+                            filmsList.appendChild(listItem);
+                        });
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+            </script>
+</body>
+</html>
