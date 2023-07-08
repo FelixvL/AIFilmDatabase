@@ -80,12 +80,21 @@
                         data.forEach(film => {
                             const listItem = document.createElement('li');
                             listItem.textContent = `Naam: ${film.naam}, Bestandsnaam: ${film.bestandsnaam}`;
+                            listItem.addEventListener('click', function() {
+    speelVideo(film.id);
+});
                             filmsList.appendChild(listItem);
                         });
                     })
                     .catch((error) => {
                         console.error('Error:', error);
                     });
+
+                    function speelVideo(videoid){
+                        console.log(videoid)
+                        window.location.href = `speelvideo.html?filmid=${videoid}`;
+
+                    }
             </script>
 </body>
 </html>

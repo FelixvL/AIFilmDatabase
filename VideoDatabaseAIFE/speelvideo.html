@@ -8,7 +8,14 @@
     <div id="video-player"></div>
 
     <script>
-        const videoUrl = 'doen.mp4'; // Vervang 'bestandsnaam' door de werkelijke bestandsnaam
+        const urlParams = new URLSearchParams(window.location.search);
+        const videoId = urlParams.get('filmid');
+        fetch(`http://127.0.0.1:5000/video/${videoId}`)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+    })
+        const videoUrl = '../doen.mp4'; // Vervang 'bestandsnaam' door de werkelijke bestandsnaam
 
         const videoPlayer = document.createElement('video');
         videoPlayer.setAttribute('controls', true);

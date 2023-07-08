@@ -73,10 +73,21 @@ def get_films():
     return jsonify(film_list)
 
 
-@app.route('/video/<bestandsnaam>')
-def speel_video(bestandsnaam):
-    videourl = f"http://localhost:5000/static/videos/{bestandsnaam}"
-    return jsonify({'videourl': videourl})
-    
+
+
+@app.route('/video/<video_id>')
+def get_video(video_id):
+    video = Film.query.get(video_id)
+
+    if video is None:
+        return jsonify({'error': 'Video not found'}), 404
+
+    video_data = {
+        'id': video.id,
+        'naam': video.naam,
+        'bestandsnaam': video.bestandsnaam
+    }
+
+    return jsonify(video_data)
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True)
